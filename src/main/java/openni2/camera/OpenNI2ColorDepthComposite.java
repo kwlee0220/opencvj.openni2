@@ -30,8 +30,8 @@ public class OpenNI2ColorDepthComposite extends AbstractJniObjectProxy
     	
     	public Params(ConfigNode config) {
     		deviceUri = config.get("device_uri").asString(null);
-    		colorImageSize = OpenCvJUtils.asSize(config.traverse("color.image_size"), null);
-    		depthImageSize = OpenCvJUtils.asSize(config.traverse("depth.image_size"), null);
+    		colorImageSize = OpenCvJUtils.asSize(config.traverse("color.image_size"));
+    		depthImageSize = OpenCvJUtils.asSize(config.traverse("depth.image_size"));
     		frameSync = config.get("frame_sync").asBoolean(false);
     		imageRegistration = config.get("image_registration").asBoolean(false);
     	}

@@ -29,7 +29,7 @@ public abstract class OpenNI2CameraBase extends AbstractJniObjectProxy
     	
     	public Params(ConfigNode config) {
     		deviceUri = config.get("device_uri").asString(null);
-    		imageSize = OpenCvJUtils.asSize(config.get("image_size"), null);
+    		imageSize = OpenCvJUtils.asSize(config.get("image_size"));
     	}
     }
     

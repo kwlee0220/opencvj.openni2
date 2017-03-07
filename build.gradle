@@ -1,0 +1,64 @@
+apply plugin: 'java'
+apply plugin: 'maven'
+
+group = 'etri'
+version = '1.0'
+ext.opencv_version = '2411'
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+[compileJava,compileTestJava]*.options*.encoding = 'UTF-8'
+
+repositories {
+	mavenCentral()
+	maven {
+		name = 'dist'
+		url = "file:${distRepositoryDir}"
+	}
+}
+
+dependencies {
+	compile project(':utils')
+	compile project(":event")
+	compile project(':planet')
+	compile project(':camus.model')
+	compile project(':opencvj')
+	
+	compile fileTree(dir: 'lib', include: "opencv-${opencv_version}.jar")
+	compile "com.google.inject:guice:4.1.0"
+	
+}
+
+task sourceJar(type: Jar) {
+	classifier 'sources'
+	from sourceSets.main.allSource
+}
+
+task javadocJar(type: Jar) {
+	classifier 'javadoc'
+	from javadoc.destinationDir
+}
+
+artifacts {
+	archives sourceJar
+	archives javadocJar
+}
+
+uploadArchives {
+	repositories {
+		mavenDeployer {
+			repository(url: "file:${distRepositoryDir}")
+		}
+	}
+}
+
+apply plugin: 'eclipse'
+eclipse {
+	classpath {
+		file {
+			withXml {
+				def node = it.asNode()
+				node.appendNode('classpathentry', [kind: 'output', path: 'classes'])
+			}
+		}
+	}
+}

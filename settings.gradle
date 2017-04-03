@@ -1,6 +1,10 @@
 rootProject.name = 'opencvj.openni2'
 
-['utils', 'event', 'planet', 'camus.model', 'opencvj'].each {
+['utils','event','async','planet'].each {
+	include ":$it"
+	project(":$it").projectDir = file("../../github/$it")
+}
+['camus.model', 'etri.services', 'opencvj'].each {
 	include ":$it"
 	project(":$it").projectDir = file("../$it")
 }

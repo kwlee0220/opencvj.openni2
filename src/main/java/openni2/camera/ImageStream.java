@@ -1,9 +1,10 @@
 package openni2.camera;
 
+import javax.annotation.concurrent.GuardedBy;
+
 import org.opencv.core.Mat;
 import org.opencv.core.Size;
 
-import net.jcip.annotations.GuardedBy;
 import opencvj.OpenCvJUtils;
 import opencvj.camera.OpenCvJCamera;
 import openni2.SensorType;

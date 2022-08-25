@@ -1,5 +1,4 @@
-apply plugin: 'java'
-apply plugin: 'maven'
+apply plugin: 'java-library'
 
 group = 'etri'
 version = '1.0'
@@ -15,6 +14,7 @@ repositories {
 ext.opencv_version = '2411'
 dependencies {
 	compile project(':utils')
+	compile project(':utilsx')
 	compile project(":event")
 	compile project(':planet')
 	compile project(':camus.model')
@@ -65,7 +65,12 @@ eclipse {
 				}
 				cp.entries.each { entry ->
 					if ( entry.kind == 'src' && entry.hasProperty('output') ) {
-						entry.output = 'classes'
+						if ( entry.path.startsWith("src/test/") ) {
+							entry.output = 'test_classes'
+						}
+						else {
+							entry.output = 'classes'
+						}
 					}
 				}
 			}
